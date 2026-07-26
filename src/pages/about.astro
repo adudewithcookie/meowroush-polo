@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import about from '../assets/about.jpg';
+---
+
+<Layout
+  title="About — Your Name"
+  description="About this photo journal."
+  currentPage="about"
+>
+  <main class="wrap">
+    <div class="about-layout">
+      <Image
+        src={about}
+        alt="Portrait photo"
+        width={1000}
+        heights={[400, 800, 1000]}
+        sizes="(max-width: 800px) 100vw, 460px"
+      />
+
+      <div class="about-copy">
+        <h1>About</h1>
+        <p>This is a running log of the places I travel to, mostly told through photos with a bit of writing alongside them. Some trips get a full day-by-day breakdown; others are just a single set from a weekend somewhere close by.</p>
+        <p>Everything here is shot and edited by me. Replace this paragraph with your own bio — a couple of sentences about what you shoot with, what kind of trips you tend to take, or why you started keeping this log.</p>
+
+        <dl class="about-facts">
+          <div><dt>Based in</dt><dd>— your city —</dd></div>
+          <div><dt>Camera</dt><dd>— your gear —</dd></div>
+          <div><dt>Contact</dt><dd><a href="mailto:you@example.com">you@example.com</a></dd></div>
+        </dl>
+      </div>
+    </div>
+  </main>
+</Layout>

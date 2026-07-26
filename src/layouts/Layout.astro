@@ -1,0 +1,90 @@
+---
+import '../styles/style.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Which nav item is active on this page. */
+  currentPage?: 'home' | 'photos' | 'about';
+}
+
+const { title, description, currentPage } = Astro.props;
+
+const navItems = [
+  { label: 'Home', href: '/', key: 'home' as const },
+  { label: 'Photos', href: '/photos', key: 'photos' as const },
+  { label: 'About', href: '/about', key: 'about' as const },
+];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  {description && <meta name="description" content={description} />}
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="/" class="site-logo">Your Name<span>.</span></a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Toggle menu">MENU</button>
+    <ul class="site-nav">
+      {navItems.map((item) => (
+        <li>
+          <a href={item.href} aria-current={currentPage === item.key ? 'page' : undefined}>
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</header>
+
+<slot />
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 Your Name</p>
+    <p><a href="/about">About this site</a></p>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  const navToggle = document.querySelector('.nav-toggle');
+  const siteNav = document.querySelector('.site-nav');
+  if (navToggle && siteNav) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = siteNav.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+  }
+
+  // Scroll-reveal for trip cards and photos.
+  // Respects prefers-reduced-motion — if set, everything is shown immediately.
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealTargets = document.querySelectorAll('.trip-card, .photo-figure');
+
+  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+    revealTargets.forEach((el) => el.classList.add('in-view'));
+  } else {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
+    revealTargets.forEach((el) => observer.observe(el));
+  }
+</script>
+
+</body>
+</html>

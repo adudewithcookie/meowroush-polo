@@ -1,0 +1,88 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TripCard from '../components/TripCard.astro';
+import { Image } from 'astro:assets';
+import hero from '../assets/hero.jpg';
+import kyotoCover from '../assets/kyoto-cover.jpg';
+import reykjavikCover from '../assets/reykjavik-cover.jpg';
+import lisbonCover from '../assets/lisbon-cover.jpg';
+import patagoniaCover from '../assets/patagonia-cover.jpg';
+---
+
+<Layout
+  title="Your Name — Photos"
+  description="A travel photo journal — trips, places, and the pictures from them."
+  currentPage="home"
+>
+  <section class="hero">
+    <Image
+      src={hero}
+      alt="Wide landscape photo from a recent trip"
+      widths={[800, 1200, 1600, 2400]}
+      sizes="100vw"
+      fetchpriority="high"
+    />
+    <div class="hero-content">
+      <p class="hero-eyebrow">Travel &amp; photography journal</p>
+      <h1 class="hero-title">Places I've been, and what they looked like</h1>
+      <p class="hero-sub">A running record of trips — mostly landscapes, cities and the odd meal worth remembering.</p>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <section class="section">
+      <div class="section-head">
+        <h2>Recent trips</h2>
+        <span class="section-note">4 collections</span>
+      </div>
+
+      <div class="trip-grid">
+
+        <TripCard
+          href="/trip-kyoto"
+          cover={kyotoCover}
+          coverAlt="Cover photo from Kyoto, Japan"
+          place="Kyoto, Japan"
+          days="6 days"
+          photoCount="214 photos"
+          title="Temples, bamboo groves and back streets"
+          blurb="A slow week in the old capital — early mornings at the shrines before the crowds arrive."
+        />
+
+        <TripCard
+          href="#"
+          cover={reykjavikCover}
+          coverAlt="Cover photo from Reykjavik, Iceland"
+          place="Reykjavik, Iceland"
+          days="9 days"
+          photoCount="340 photos"
+          title="The ring road, end to end"
+          blurb="Waterfalls, black sand and a lot of driving in weather that changed its mind every hour."
+        />
+
+        <TripCard
+          href="#"
+          cover={lisbonCover}
+          coverAlt="Cover photo from Lisbon, Portugal"
+          place="Lisbon, Portugal"
+          days="5 days"
+          photoCount="168 photos"
+          title="Tiled walls and steep trams"
+          blurb="Alfama at golden hour, a lot of pastel de nata, and the best miradouro in the city."
+        />
+
+        <TripCard
+          href="#"
+          cover={patagoniaCover}
+          coverAlt="Cover photo from Patagonia"
+          place="Patagonia"
+          days="12 days"
+          photoCount="512 photos"
+          title="Torres del Paine on foot"
+          blurb="The W trek, four days of it, and the one clear-sky morning that made the whole trip."
+        />
+
+      </div>
+    </section>
+  </main>
+</Layout>

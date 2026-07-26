@@ -1,0 +1,470 @@
+/* =========================================================================
+   TRAVEL SITE — shared stylesheet
+   Design language: "field log" — a photo journal cataloguing trips the way
+   a passport stamp or a film canister label would: place, coordinates,
+   duration, count. Warm paper background, ink-navy text, petrol accent.
+   ========================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ---- color tokens ---- */
+  --paper:      #F7F5F0;   /* page background — warm, not stark white */
+  --paper-dim:  #EFEBE2;   /* recessed panels, hairlines on paper */
+  --ink:        #1E2422;   /* primary text — near-black warm charcoal */
+  --ink-soft:   #4B534F;   /* secondary text */
+  --ink-faint:  #8C9490;   /* tertiary / meta text */
+  --petrol:     #2F5D62;   /* primary accent — maps, ink stamps */
+  --petrol-dim: #24484C;
+  --sand:       #B0752B;   /* secondary accent — used sparingly */
+  --line:       #DEDACD;   /* hairline rule color on paper */
+  --white:      #FFFFFF;
+
+  /* ---- type tokens ---- */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'DejaVu Sans Mono', monospace;
+
+  /* ---- layout tokens ---- */
+  --max-width: 1180px;
+  --gutter: clamp(20px, 5vw, 64px);
+  --radius: 2px; /* near-square — this site doesn't round corners */
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+
+.wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+/* focus visibility — keyboard users */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--petrol);
+  outline-offset: 3px;
+}
+
+/* -------------------------------------------------------------------------
+   HEADER / NAV
+   ------------------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(247, 245, 240, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 76px;
+}
+
+.site-logo {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.site-logo span {
+  color: var(--petrol);
+}
+
+.site-nav {
+  display: flex;
+  gap: clamp(18px, 3vw, 36px);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav a {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink-soft);
+  padding-bottom: 4px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  color: var(--petrol);
+  border-color: var(--petrol);
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--line);
+  padding: 8px 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .site-nav {
+    position: absolute;
+    top: 76px;
+    left: 0;
+    right: 0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    flex-direction: column;
+    gap: 0;
+    display: none;
+  }
+  .site-nav.open { display: flex; }
+  .site-nav li { border-top: 1px solid var(--line); }
+  .site-nav a { display: block; padding: 16px var(--gutter); border-bottom: none; }
+  .nav-toggle { display: block; }
+}
+
+/* -------------------------------------------------------------------------
+   STAMP — the site's signature element.
+   A small monospace "field log" line used everywhere a trip is referenced:
+   LOCATION — COORDINATES — DURATION — PHOTO COUNT.
+   Encodes real trip metadata, echoing a passport stamp / film label.
+   ------------------------------------------------------------------------- */
+.stamp {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+}
+
+.stamp .stamp-place { color: var(--petrol); font-weight: 500; }
+.stamp .stamp-sep { opacity: 0.5; }
+
+/* -------------------------------------------------------------------------
+   HERO (home page)
+   ------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  height: min(86vh, 780px);
+  min-height: 460px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+.hero img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(15,18,17,0.72) 0%, rgba(15,18,17,0.15) 45%, rgba(15,18,17,0.05) 65%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  color: var(--white);
+  padding: 0 var(--gutter) 56px;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  margin: 0 0 14px;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(38px, 6vw, 68px);
+  line-height: 1.04;
+  margin: 0 0 18px;
+  max-width: 16ch;
+}
+
+.hero-sub {
+  font-size: clamp(15px, 1.6vw, 18px);
+  color: rgba(255,255,255,0.85);
+  max-width: 46ch;
+  margin: 0;
+}
+
+/* -------------------------------------------------------------------------
+   SECTION HEADINGS
+   ------------------------------------------------------------------------- */
+.section {
+  padding: clamp(48px, 8vw, 96px) 0;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: clamp(28px, 4vw, 44px);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 18px;
+}
+
+.section-head h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(24px, 3vw, 32px);
+  margin: 0;
+}
+
+.section-head .section-note {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* -------------------------------------------------------------------------
+   TRIP GRID + CARD
+   ------------------------------------------------------------------------- */
+.trip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: clamp(24px, 3vw, 40px);
+}
+
+.trip-card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.trip-card.in-view { opacity: 1; transform: translateY(0); }
+
+.trip-card figure {
+  margin: 0 0 16px;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: var(--paper-dim);
+}
+
+.trip-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(.2,.7,.3,1);
+}
+
+.trip-card:hover img { transform: scale(1.045); }
+
+.trip-card h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 22px;
+  margin: 0 0 8px;
+}
+
+.trip-card p {
+  font-size: 14.5px;
+  color: var(--ink-soft);
+  margin: 0 0 10px;
+  max-width: 42ch;
+}
+
+/* -------------------------------------------------------------------------
+   TRIP PAGE (photo essay)
+   ------------------------------------------------------------------------- */
+.trip-header {
+  padding: clamp(48px, 9vw, 108px) 0 clamp(32px, 5vw, 56px);
+  border-bottom: 1px solid var(--line);
+}
+
+.trip-header h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(34px, 6vw, 60px);
+  margin: 14px 0 18px;
+  line-height: 1.05;
+}
+
+.trip-header .trip-dek {
+  font-size: 17px;
+  color: var(--ink-soft);
+  max-width: 60ch;
+  margin: 0;
+}
+
+.trip-body {
+  padding: clamp(40px, 7vw, 80px) 0;
+}
+
+.trip-block {
+  margin-bottom: clamp(48px, 7vw, 84px);
+}
+
+.trip-block p {
+  max-width: 66ch;
+  font-size: 16.5px;
+  color: var(--ink);
+}
+
+.trip-block p + p { margin-top: 1.1em; }
+
+.photo-figure {
+  margin: 0 0 clamp(48px, 7vw, 84px);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.photo-figure.in-view { opacity: 1; transform: translateY(0); }
+
+.photo-figure img {
+  width: 100%;
+  background: var(--paper-dim);
+}
+
+.photo-figure figcaption {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--ink-faint);
+  margin-top: 12px;
+  letter-spacing: 0.02em;
+}
+
+.photo-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(16px, 2.5vw, 28px);
+}
+
+@media (max-width: 720px) {
+  .photo-pair { grid-template-columns: 1fr; }
+}
+
+/* -------------------------------------------------------------------------
+   ABOUT PAGE
+   ------------------------------------------------------------------------- */
+.about-layout {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(32px, 6vw, 72px);
+  align-items: start;
+  padding: clamp(48px, 8vw, 96px) 0;
+}
+
+@media (max-width: 800px) {
+  .about-layout { grid-template-columns: 1fr; }
+}
+
+.about-layout img { width: 100%; }
+
+.about-copy h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(30px, 4vw, 44px);
+  margin: 0 0 22px;
+}
+
+.about-copy p {
+  font-size: 16.5px;
+  color: var(--ink);
+  max-width: 58ch;
+}
+
+.about-copy p + p { margin-top: 1.1em; }
+
+.about-facts {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-soft);
+  display: grid;
+  gap: 10px;
+}
+
+.about-facts dt { display: inline; color: var(--ink-faint); }
+.about-facts dd { display: inline; margin: 0 0 0 8px; }
+.about-facts div { margin: 0; }
+
+/* -------------------------------------------------------------------------
+   FOOTER
+   ------------------------------------------------------------------------- */
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 36px 0;
+  margin-top: 40px;
+}
+
+.site-footer .wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.site-footer p {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-faint);
+  letter-spacing: 0.03em;
+}
+
+.site-footer a {
+  text-decoration: none;
+  color: var(--ink-soft);
+}
+
+.site-footer a:hover { color: var(--petrol); }

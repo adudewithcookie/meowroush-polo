@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  href: string;
+  cover: ImageMetadata;
+  coverAlt: string;
+  place: string;
+  days: string;
+  photoCount: string;
+  title: string;
+  blurb: string;
+}
+
+const { href, cover, coverAlt, place, days, photoCount, title, blurb } = Astro.props;
+---
+
+<a class="trip-card" href={href}>
+  <figure>
+    <Image
+      src={cover}
+      alt={coverAlt}
+      width={640}
+      height={427}
+      loading="lazy"
+      decoding="async"
+    />
+  </figure>
+  <div class="stamp">
+    <span class="stamp-place">{place}</span>
+    <span class="stamp-sep">·</span><span>{days}</span>
+    <span class="stamp-sep">·</span><span>{photoCount}</span>
+  </div>
+  <h3>{title}</h3>
+  <p>{blurb}</p>
+</a>

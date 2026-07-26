@@ -1,0 +1,96 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Figure from '../components/Figure.astro';
+import kyoto01 from '../assets/kyoto-01.jpg';
+import kyoto02 from '../assets/kyoto-02.jpg';
+import kyoto03 from '../assets/kyoto-03.jpg';
+import kyoto04 from '../assets/kyoto-04.jpg';
+import kyoto05 from '../assets/kyoto-05.jpg';
+import kyoto06 from '../assets/kyoto-06.jpg';
+---
+
+<Layout
+  title="Kyoto, Japan — Your Name"
+  description="Six days in Kyoto — temples, bamboo groves and back streets."
+  currentPage="photos"
+>
+  <main>
+    <div class="wrap trip-header">
+      <div class="stamp">
+        <span class="stamp-place">Kyoto, Japan</span>
+        <span class="stamp-sep">·</span><span>35.0116&deg; N, 135.7681&deg; E</span>
+        <span class="stamp-sep">·</span><span>6 days</span>
+        <span class="stamp-sep">·</span><span>214 photos</span>
+      </div>
+      <h1>Temples, bamboo groves and back streets</h1>
+      <p class="trip-dek">A slow week in the old capital, timed around the shoulder season — early mornings at the shrines before the tour buses arrive, and a lot of walking in between.</p>
+    </div>
+
+    <div class="wrap trip-body">
+
+      <div class="trip-block">
+        <p>Kyoto rewards mornings. Most of this set was shot between 6 and 8am, when the light is low and the famous spots are still mostly empty — by 10 the same paths are shoulder to shoulder.</p>
+        <p>Replace this paragraph with your own trip notes. Write however much or little you want per stop — some days might just get a photo and a caption, others a few paragraphs of context.</p>
+      </div>
+
+      <Figure
+        src={kyoto01}
+        alt="Torii gates at Fushimi Inari at sunrise"
+        caption="Fushimi Inari-taisha, 6:40am — the gates start about ten minutes' walk from the entrance."
+      />
+
+      <div class="trip-block">
+        <p>The Arashiyama bamboo grove is a five-minute walk that everyone stops in for twenty. It's smaller than it photographs, but the light coming through the stalks around mid-morning is worth the crowds.</p>
+      </div>
+
+      <div class="photo-pair">
+        <Figure
+          src={kyoto02}
+          alt="Bamboo grove in Arashiyama"
+          caption="Arashiyama bamboo grove."
+          widths={900}
+          sizes="(max-width: 720px) 100vw, 580px"
+        />
+        <Figure
+          src={kyoto04}
+          alt="Detail shot of temple architecture"
+          caption="Roofline detail, Tenryu-ji."
+          widths={900}
+          sizes="(max-width: 720px) 100vw, 580px"
+        />
+      </div>
+
+      <Figure
+        src={kyoto03}
+        alt="Quiet backstreet in Gion district"
+        caption="Gion, late afternoon — the quieter lanes a couple of streets back from Hanamikoji."
+      />
+
+      <div class="trip-block">
+        <p>Kinkaku-ji is the one stop that's genuinely as striking in person as in every photo of it. Worth going even knowing exactly what you're going to see.</p>
+      </div>
+
+      <div class="photo-pair">
+        <Figure
+          src={kyoto05}
+          alt="Reflection of the golden pavilion"
+          caption="Kinkaku-ji reflected in the pond."
+          widths={900}
+          sizes="(max-width: 720px) 100vw, 580px"
+        />
+        <Figure
+          src={kyoto06}
+          alt="View from Kiyomizu-dera at dusk"
+          caption="Kiyomizu-dera, just before closing."
+          widths={900}
+          sizes="(max-width: 720px) 100vw, 580px"
+        />
+      </div>
+
+      <div class="trip-block">
+        <p>Add a closing paragraph here — how the trip ended, what you'd do differently, or what's next. This block, and the structure above it, is the template: duplicate this file for your next trip and swap in your own photos, captions and notes.</p>
+      </div>
+
+    </div>
+  </main>
+</Layout>
